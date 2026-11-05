@@ -3,60 +3,95 @@
 
 export const site = {
   name: "Madam CAC",
-  whatsapp: "2348000000000", // PLACEHOLDER: international format, no "+"
-  phone: "+234 800 000 0000", // PLACEHOLDER
-  email: "hello@madamcac.ng", // PLACEHOLDER
-  address: "Lagos, Nigeria", // PLACEHOLDER
-  accreditation: "CAC Accredited Agent", // PLACEHOLDER: add number if available
+  founderName: "Emilia Jerome Gbonhinbor",
+  whatsapp: "2348138507198",
+  phone: "+234 813 850 7198",
+  email: "speedsterapexsolutionsltd@gmail.com",
+  address: "Lagos, Nigeria",
+  accreditation: "CAC Accredited Agent · Certified Business Consultant",
   businessesRegistered: 300,
   companyName: "Speedster Apex Solutions Ltd",
-  yearStarted: 2019, // PLACEHOLDER: year she started
-  rcNumber: "0000000", // PLACEHOLDER: her real RC number
+  yearStarted: 2019,
+  rcNumber: "8386316",
   cacSearchUrl: "https://search.cac.gov.ng/home",
-  instagram: "https://instagram.com/", // PLACEHOLDER
+  instagram: "https://instagram.com/",
 };
 
 export const whatsappLink = (msg = "Hello Madam CAC, I'd like to register my business.") =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
 
-export const services = [
+export interface ServiceCategory {
+  code: string;
+  name: string;
+  desc: string;
+  icon: string;
+  items: string[];
+  featured?: boolean;
+}
+
+export const serviceCategories: ServiceCategory[] = [
   {
-    title: "Business Name Registration",
-    desc: "Perfect for sole traders and small businesses. Get your BN certificate quickly.",
-    price: "From ₦35,000", // PLACEHOLDER
-    icon: "Store",
-    featured: true,
-  },
-  {
-    title: "Limited Company (LTD)",
-    desc: "Full incorporation with certificate, MEMART and status report.",
-    price: "From ₦85,000", // PLACEHOLDER
+    code: "A",
+    name: "Business Registration & Corporate Affairs",
+    desc: "End-to-end CAC incorporation, annual compliance filings, and prompt resolution of stalled portal queries.",
     icon: "Building2",
+    items: [
+      "CAC Business Name / Enterprise Registration",
+      "Limited Liability Company (LTD) Registration",
+      "Incorporated Trustees Registration",
+      "CAC Annual Returns Filing",
+      "Post-Incorporation Filings & Updates",
+      "Assistance with CAC Queries & Documentation",
+    ],
     featured: true,
   },
   {
-    title: "Incorporated Trustees",
-    desc: "For NGOs, churches, mosques, clubs and associations.",
-    price: "From ₦150,000", // PLACEHOLDER
-    icon: "HeartHandshake",
+    code: "B",
+    name: "Intellectual Property Registration",
+    desc: "Secure legal brand ownership, copyright protection, and exclusive commercial rights across Nigeria.",
+    icon: "ShieldCheck",
+    items: [
+      "Trademark Registration",
+      "Copyright Registration",
+    ],
+    featured: true,
   },
   {
-    title: "Post-Incorporation",
-    desc: "Change of directors, shares, name or address, done properly.",
-    price: "Chat for quote",
-    icon: "FilePen",
-  },
-  {
-    title: "Annual Returns",
-    desc: "Stay compliant and avoid CAC penalties with timely filing.",
-    price: "From ₦15,000", // PLACEHOLDER
-    icon: "CalendarCheck",
-  },
-  {
-    title: "SCUML, TIN & Bank Docs",
-    desc: "Everything you need to open a corporate account and start trading.",
-    price: "Chat for quote",
+    code: "C",
+    name: "Regulatory & Tax-Related Support",
+    desc: "Mandatory anti-money laundering certifications, international export licencing, and active tax onboarding.",
     icon: "Landmark",
+    items: [
+      "SCUML Registration Assistance",
+      "Export Licence Assistance",
+      "Tax-ID Retrieval, Activation & Validation",
+      "NRS/Rev360 Enrollment & Tax Compliance",
+    ],
+  },
+  {
+    code: "D",
+    name: "Branding & Business Documentation",
+    desc: "Professional brand identity design, tender-ready company profiles, and standardized corporate templates.",
+    icon: "Sparkles",
+    items: [
+      "Logo Design",
+      "Letterhead & Business Card Design",
+      "Company Profile Design",
+      "Business Document & Template Design",
+      "Google Business Profile Setup Assistance",
+    ],
+  },
+  {
+    code: "E",
+    name: "Training, Consulting & Business Support",
+    desc: "Practical hands-on masterclasses and one-on-one consulting to master CAC processes and ensure compliance.",
+    icon: "HeartHandshake",
+    items: [
+      "CAC Registration Training",
+      "Trademark Registration Training",
+      "Business Compliance Guidance",
+      "Strategic Business Consulting",
+    ],
   },
 ];
 

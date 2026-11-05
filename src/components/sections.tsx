@@ -4,16 +4,16 @@ import Image from "next/image";
 import { useState } from "react";
 import {
   ArrowRight, BadgeCheck, Building2, CalendarCheck, CheckCheck, ChevronDown, Clock, FilePen,
-  HeartHandshake, Landmark, Mail, MapPin, MessageCircle, Phone, ShieldCheck, Star, Store, Wallet,
+  HeartHandshake, Landmark, Mail, MapPin, MessageCircle, Phone, Search, ShieldCheck, Star, Store, Wallet,
   Layers, Zap, Hexagon, Truck, Sparkles, Leaf, Box, Gem, Globe, Feather,
 } from "lucide-react";
 import { BlurFade, DotPattern, MagicCard, Marquee, NumberTicker, ShimmerButton } from "./magicui";
 import {
-  brands, faqs, reasons, services, site, steps, testimonials, whatsappLink,
+  brands, faqs, reasons, serviceCategories, site, steps, testimonials, whatsappLink,
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const icons = { Store, Building2, HeartHandshake, FilePen, CalendarCheck, Landmark };
+const icons = { Store, Building2, HeartHandshake, FilePen, CalendarCheck, Landmark, Search, ShieldCheck, Feather, BadgeCheck, Globe, Sparkles, Layers, Box };
 const reasonIcons = [ShieldCheck, Clock, Wallet, HeartHandshake];
 const brandIcons = [Layers, Zap, Hexagon, Truck, Sparkles, Leaf, Box, Gem, Globe, Feather];
 
@@ -39,8 +39,17 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-emerald-deep/5 bg-cream/75 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <a href="#" className="font-serif text-2xl font-bold text-emerald-deep">
-          Madam <span className="text-gold">CAC</span>
+        <a href="#" className="flex items-center gap-2 group">
+          <div className="relative h-9 sm:h-10 w-[125px] sm:w-[140px] overflow-hidden rounded">
+            <Image
+              src="/speedster-logo.jpg"
+              alt="Speedster Apex Solutions Ltd."
+              fill
+              sizes="140px"
+              className="object-contain object-left mix-blend-multiply"
+              priority
+            />
+          </div>
         </a>
         <div className="hidden gap-8 text-sm font-medium text-ink/70 md:flex">
           {["Services", "Process", "Reviews", "FAQ"].map((l) => (
@@ -86,7 +95,7 @@ export function Hero() {
           {/* Center: portrait */}
           <BlurFade delay={0.2} className="order-1 mx-auto w-full max-w-xs md:order-2 md:max-w-sm">
             <div className="relative">
-              <Image src="/madam-cac-cutout.png" alt="Madam CAC, CAC registration agent" width={600} height={800} priority className="relative h-auto w-full object-cover [mask-image:linear-gradient(to_bottom,black_75%,transparent)]" />
+              <Image src="/madam-cac-new.png" alt="Emilia Jerome Gbonhinbor (Madam CAC)" width={853} height={1024} priority className="relative h-auto w-full object-cover drop-shadow-2xl [mask-image:linear-gradient(to_bottom,black_85%,transparent)]" />
             </div>
           </BlurFade>
 
@@ -174,33 +183,67 @@ export function Services() {
         <SectionHead
           eyebrow="Our Services"
           title="Everything you need to make your business official"
-          sub="From business name registration to annual filings, we handle the entire process without the stress."
+          sub="Explore our five core service areas: corporate affairs, intellectual property, regulatory compliance, branding, and consulting."
         />
-        <div className="grid gap-5 md:grid-cols-3">
-          {services.map((s, i) => {
-            const Icon = icons[s.icon as keyof typeof icons];
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {serviceCategories.map((c, i) => {
+            const Icon = icons[c.icon as keyof typeof icons] || Building2;
             return (
-              <BlurFade key={s.title} delay={i * 0.06} className={cn(s.featured && "md:col-span-1")}>
+              <BlurFade key={c.code} delay={i * 0.05} className={cn(c.code === "A" && "md:col-span-2 lg:col-span-1")}>
                 <a
-                  href={whatsappLink(`Hello Madam CAC, I'm interested in ${s.title}.`)}
+                  href={whatsappLink(`Hello Madam CAC, I'm interested in ${c.name}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Enquire about ${s.title} on WhatsApp`}
-                  className="block h-full rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                  aria-label={`Enquire about ${c.name} on WhatsApp`}
+                  className="group block h-full rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 >
-                  <MagicCard className={cn("h-full cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-2xl", s.featured && "bg-emerald-deep text-cream")}>
+                  <MagicCard className={cn(
+                    "h-full cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-2xl",
+                    c.featured && "bg-emerald-deep text-cream"
+                  )}>
                     <div>
-                      <div className={cn("mb-6 grid h-12 w-12 place-items-center rounded-2xl", s.featured ? "bg-gold/20 text-gold" : "bg-emerald-deep/5 text-emerald-deep")}>
-                        <Icon size={22} />
+                      <div className="mb-5 flex items-center justify-between">
+                        <div className={cn(
+                          "grid h-12 w-12 place-items-center rounded-2xl",
+                          c.featured ? "bg-gold/20 text-gold" : "bg-emerald-deep/5 text-emerald-deep"
+                        )}>
+                          <Icon size={24} />
+                        </div>
+                        {c.featured && (
+                          <span className="rounded-full bg-gold px-3 py-1 text-xs font-bold text-emerald-deep">
+                            Popular
+                          </span>
+                        )}
                       </div>
-                      {s.featured && <span className="absolute right-0 top-0 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-emerald-deep">Popular</span>}
-                      <h3 className={cn("font-serif text-2xl font-semibold", !s.featured && "text-emerald-deep")}>{s.title}</h3>
-                      <p className={cn("mt-3 leading-relaxed", s.featured ? "text-cream/75" : "text-ink/65")}>{s.desc}</p>
+
+                      <h3 className={cn("font-serif text-2xl font-bold leading-tight", !c.featured && "text-emerald-deep")}>
+                        {c.name}
+                      </h3>
+
+                      <p className={cn("mt-3 text-sm leading-relaxed", c.featured ? "text-cream/80" : "text-ink/65")}>
+                        {c.desc}
+                      </p>
+
+                      <ul className="mt-5 space-y-2 border-t border-emerald-deep/10 pt-4">
+                        {c.items.map((item) => (
+                          <li key={item} className="flex items-start gap-2 text-xs">
+                            <CheckCheck size={14} className={cn("mt-0.5 shrink-0", c.featured ? "text-gold" : "text-emerald-mid")} />
+                            <span className={cn(c.featured ? "text-cream/90" : "text-ink/75 font-medium")}>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className={cn("font-semibold", s.featured ? "text-gold-light" : "text-gold")}>{s.price}</span>
-                      <span className={cn("grid h-10 w-10 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5", s.featured ? "bg-gold text-emerald-deep" : "bg-emerald-deep text-cream")}>
-                        <ArrowRight size={16} />
+
+                    <div className="mt-6 flex items-center justify-between border-t border-emerald-deep/5 pt-4">
+                      <span className={cn("text-xs font-semibold", c.featured ? "text-gold-light" : "text-gold")}>
+                        Chat for Details
+                      </span>
+                      <span className={cn(
+                        "grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5",
+                        c.featured ? "bg-gold text-emerald-deep" : "bg-emerald-deep text-cream"
+                      )}>
+                        <ArrowRight size={15} />
                       </span>
                     </div>
                   </MagicCard>
